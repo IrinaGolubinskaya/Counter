@@ -7,16 +7,16 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-    @IBOutlet weak var resetButton: UIButton!
-    @IBOutlet weak var resultLabel: UILabel!
-    @IBOutlet weak var minusOneButton: UIButton!
-    @IBOutlet weak var plusOneButton: UIButton!
-    @IBOutlet weak var historyView: UITextView!
+final class ViewController: UIViewController {
+    @IBOutlet weak private var resetButton: UIButton!
+    @IBOutlet weak private var resultLabel: UILabel!
+    @IBOutlet weak private var minusOneButton: UIButton!
+    @IBOutlet weak private var plusOneButton: UIButton!
+    @IBOutlet weak private var historyView: UITextView!
     
-    var value = 0
-    
-    func getStringDate()-> String {
+    private var value = 0
+    private var text = "История изменений:"
+    private func getStringDate()-> String {
         let today = Date()
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .short
@@ -39,28 +39,32 @@ class ViewController: UIViewController {
         historyView.layer.cornerRadius = 10
     }
     
-    @IBAction func resetAction(_ sender: UIButton) {
+    @IBAction private func resetAction(_ sender: UIButton) {
         value = 0
         resultLabel.text = String(value)
-        historyView.text = " \(getStringDate()) :\n значение сброшено."
+       text +=  "\n \(getStringDate()) :\n значение сброшено."
+        historyView.text = text
     }
     
-    @IBAction func subtractionAction(_ sender: Any) {
+    @IBAction private func subtractionAction(_ sender: Any) {
         if value >= 1 {
             value -= 1
             resultLabel.text = String(value)
-            historyView.text = "\(getStringDate()) :\n значение изменено на -1."
+            text += "\n\(getStringDate()) :\n значение изменено на -1."
+            historyView.text = text
         } else {
             value = 0
             resultLabel.text = String(value)
-            historyView.text = " \(getStringDate()) :\n попытка уменьшить значение счётчика ниже 0."
+            text += "\n \(getStringDate()) :\n попытка уменьшить значение счётчика ниже 0."
+            historyView.text = text
         }
     }
     
-    @IBAction func additionAction(_ sender: Any) {
+    @IBAction private func additionAction(_ sender: Any) {
         value += 1
         resultLabel.text = String(value)
-        historyView.text = " \(getStringDate()) :\n значение изменено на +1."
+       text += "\n \(getStringDate()) :\n значение изменено на +1."
+        historyView.text = text
     }
     
 }
